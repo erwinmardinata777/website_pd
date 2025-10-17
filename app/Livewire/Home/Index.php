@@ -21,7 +21,7 @@ class Index extends Component
     {
         // Ambil data untuk ditampilkan di halaman beranda
         $this->sliders = Slider::latest()->get();
-        $this->agendas = Agenda::latest()->take(6)->get(); // contoh hanya 5 agenda terakhir
+        $this->agendas = Agenda::latest()->take(6)->get(); // contoh hanya 6 agenda terakhir
         $this->beritas = Berita::latest()->take(5)->get(); // contoh hanya 5 berita terakhir
         $this->layanans = Layanan::orderBy('id', 'asc')->get();
         $this->links = LinkTerkait::orderBy('id', 'asc')->get();
