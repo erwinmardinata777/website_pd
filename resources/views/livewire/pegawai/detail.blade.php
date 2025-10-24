@@ -43,8 +43,9 @@
                     <div class="profile-card" data-aos="fade-up">
                         <div class="profile-header">
                             <div class="profile-photo">
-                                <img src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : asset('img/default-user.png') }}" 
-                                     alt="{{ $pegawai->nama }}">
+                                <img src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}" 
+                                     alt="{{ $pegawai->nama }}"
+                                     onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'">
                             </div>
                             <h3>{{ $pegawai->nama }}</h3>
                             <p class="profile-position">{{ $pegawai->jabatan }}</p>
@@ -214,8 +215,9 @@
                             <h5>Atasan Langsung</h5>
                             <a href="{{ route('pegawai.detail', $pegawai->atasan->id) }}" class="relation-card">
                                 <div class="relation-photo">
-                                    <img src="{{ $pegawai->atasan->foto ? Storage::url($pegawai->atasan->foto) : asset('img/default-user.png') }}" 
-                                         alt="{{ $pegawai->atasan->nama }}">
+                                    <img src="{{ $pegawai->atasan->foto ? Storage::url($pegawai->atasan->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}" 
+                                         alt="{{ $pegawai->atasan->nama }}"
+                                         onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'">
                                 </div>
                                 <div class="relation-info">
                                     <h6>{{ $pegawai->atasan->nama }}</h6>
@@ -233,8 +235,9 @@
                                 @foreach($pegawai->bawahan as $bawahan)
                                 <a href="{{ route('pegawai.detail', $bawahan->id) }}" class="relation-card-small">
                                     <div class="relation-photo-small">
-                                        <img src="{{ $bawahan->foto ? Storage::url($bawahan->foto) : asset('img/default-user.png') }}" 
-                                             alt="{{ $bawahan->nama }}">
+                                        <img src="{{ $bawahan->foto ? Storage::url($bawahan->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}" 
+                                             alt="{{ $bawahan->nama }}"
+                                             onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'">
                                     </div>
                                     <div class="relation-info-small">
                                         <h6>{{ $bawahan->nama }}</h6>

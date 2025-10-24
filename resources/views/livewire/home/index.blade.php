@@ -147,8 +147,9 @@
               <div class="swiper-slide">
                 <div class="staff-card text-center">
                   <img
-                    src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : asset('img/default-user.png') }}"
+                    src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}"
                     alt="{{ $pegawai->nama }}"
+                    onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'"
                   />
                   <h6>
                     <a href="{{ route('pegawai.detail', $pegawai->id) }}" class="text-decoration-none text-dark" style="font-size: 16px;">
@@ -158,16 +159,16 @@
                   <p class="text-muted" style="font-size: 14px;">{{ $pegawai->jabatan }}</p>
                   <div class="social-links">
                     @if($pegawai->facebook)
-                      <a href="{{ $pegawai->facebook }}"><i class="fab fa-facebook-f"></i></a>
+                      <a href="{{ $pegawai->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     @endif
                     @if($pegawai->twitter)
-                      <a href="{{ $pegawai->twitter }}"><i class="fab fa-twitter"></i></a>
+                      <a href="{{ $pegawai->twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
                     @endif
                     @if($pegawai->instagram)
-                      <a href="{{ $pegawai->instagram }}"><i class="fab fa-instagram"></i></a>
+                      <a href="{{ $pegawai->instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
                     @endif
                     @if($pegawai->youtube)
-                      <a href="{{ $pegawai->youtube }}"><i class="fab fa-youtube"></i></a>
+                      <a href="{{ $pegawai->youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
                     @endif
                   </div>
                 </div>
@@ -180,6 +181,7 @@
             <div class="swiper-pagination"></div>
           </div>
         </div>
+
       </div>
     </section>
 

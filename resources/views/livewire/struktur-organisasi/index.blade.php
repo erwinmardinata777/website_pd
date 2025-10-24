@@ -36,33 +36,6 @@
     <!-- Content Section -->
     <section class="content-section">
         <div class="container">
-            <!-- Statistics Cards -->
-            <!-- <div class="stats-cards mb-5" data-aos="fade-up">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-number">{{ number_format($totalPegawai) }}</div>
-                    <div class="stat-label">Total Pegawai</div>
-                </div>
-
-                <div class="stat-card info">
-                    <div class="stat-icon">
-                        <i class="fas fa-sitemap"></i>
-                    </div>
-                    <div class="stat-number">{{ number_format($totalBidang) }}</div>
-                    <div class="stat-label">Total Bidang</div>
-                </div>
-
-                <div class="stat-card success">
-                    <div class="stat-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="stat-number">{{ number_format($pejabatStruktural) }}</div>
-                    <div class="stat-label">Pejabat Struktural</div>
-                </div>
-            </div> -->
-
             <!-- View Mode Tabs -->
             <div class="view-mode-tabs" data-aos="fade-up">
                 <button wire:click="setViewMode('grid')" 
@@ -107,8 +80,9 @@
                 @forelse($allPegawais as $index => $pegawai)
                 <div class="staff-card-simple" data-aos="fade-up" data-aos-delay="{{ $index * 30 }}">
                     <a href="{{ route('pegawai.detail', $pegawai->id) }}" style="text-decoration: none;">
-                        <img src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : asset('img/default-user.png') }}" 
-                             alt="{{ $pegawai->nama }}" />
+                        <img src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}" 
+                             alt="{{ $pegawai->nama }}"
+                             onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'" />
                         <h6>{{ $pegawai->nama }}</h6>
                         <p class="staff-position">{{ $pegawai->jabatan }}</p>
                         @if($pegawai->bidang)
@@ -163,8 +137,9 @@
                     <div class="org-card kepala">
                         <a href="{{ route('pegawai.detail', $pegawai->id) }}" class="org-link">
                             <div class="org-photo">
-                                <img src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : asset('img/default-user.png') }}" 
-                                     alt="{{ $pegawai->nama }}">
+                                <img src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}" 
+                                     alt="{{ $pegawai->nama }}"
+                                     onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'">
                             </div>
                             <div class="org-info">
                                 <h4>{{ $pegawai->nama }}</h4>
@@ -188,8 +163,9 @@
                             <div class="org-card">
                                 <a href="{{ route('pegawai.detail', $bawahan1->id) }}" class="org-link">
                                     <div class="org-photo">
-                                        <img src="{{ $bawahan1->foto ? Storage::url($bawahan1->foto) : asset('img/default-user.png') }}" 
-                                             alt="{{ $bawahan1->nama }}">
+                                        <img src="{{ $bawahan1->foto ? Storage::url($bawahan1->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}" 
+                                             alt="{{ $bawahan1->nama }}"
+                                             onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'">
                                     </div>
                                     <div class="org-info">
                                         <h4>{{ $bawahan1->nama }}</h4>
@@ -209,8 +185,9 @@
                                 <div class="org-card-small">
                                     <a href="{{ route('pegawai.detail', $bawahan2->id) }}" class="org-link">
                                         <div class="org-photo-small">
-                                            <img src="{{ $bawahan2->foto ? Storage::url($bawahan2->foto) : asset('img/default-user.png') }}" 
-                                                 alt="{{ $bawahan2->nama }}">
+                                            <img src="{{ $bawahan2->foto ? Storage::url($bawahan2->foto) : 'https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80' }}" 
+                                                 alt="{{ $bawahan2->nama }}"
+                                                 onerror="this.src='https://img.freepik.com/premium-vector/user-profile-icon-circle_1256048-12499.jpg?semt=ais_hybrid&w=740&q=80'">
                                         </div>
                                         <div class="org-info-small">
                                             <h5>{{ $bawahan2->nama }}</h5>
