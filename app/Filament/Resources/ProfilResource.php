@@ -17,10 +17,12 @@ class ProfilResource extends Resource
 {
     protected static ?string $model = Profil::class;
     protected static ?string $navigationIcon = 'heroicon-o-information-circle';
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = 'Profil';
     protected static ?string $pluralModelLabel = 'Profil';
     protected static ?string $modelLabel = 'Profil';
     protected static ?int $navigationSort = 1; // urutan pertama
+
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {

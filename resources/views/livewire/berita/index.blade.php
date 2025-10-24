@@ -1,4 +1,25 @@
 <div>
+  <style>
+      .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+      }
+
+      .breadcrumb-item.active {
+        color: white;
+      }
+
+      .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+  </style>
   <!-- Page Header -->
   <section class="page-header">
     <div class="container position-relative">
@@ -67,10 +88,10 @@
                     </p>
                     <div class="news-footer">
                       <div class="news-author">
-                        <img
+                        <!-- <img
                           src="https://randomuser.me/api/portraits/men/{{ rand(1,70) }}.jpg"
                           alt="Author"
-                        />
+                        /> -->
                         <span>{{ $berita->penulis ?? 'Admin Diskominfo' }}</span>
                       </div>
                       <a href="{{ url('berita/'.$berita->slug) }}" class="read-more">

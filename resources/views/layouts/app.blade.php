@@ -3,9 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ $profilWeb->nama ?? 'Dinas Komunikasi dan Informatika - Kabupaten Sumbawa' }}</title>
-    <meta name="description" content="{{ $profilWeb->deskripsi ?? 'Dinas Komunikasi dan Informatika Kabupaten Sumbawa' }}" />
-    <meta name="keywords" content="{{ $profilWeb->keyword ?? 'diskominfo, sumbawa, kabupaten sumbawa' }}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{{ $title ?? ($profilWeb->nama ?? 'Dinas Komunikasi dan Informatika - Kabupaten Sumbawa') }}</title>
+    <meta name="title" content="{{ $title ?? ($profilWeb->nama ?? 'Dinas Komunikasi dan Informatika - Kabupaten Sumbawa') }}" />
+    <meta name="description" content="{{ $description ?? ($profilWeb->deskripsi ?? 'Dinas Komunikasi dan Informatika Kabupaten Sumbawa - Mewujudkan Sumbawa Digital') }}" />
+    <meta name="keywords" content="{{ $keywords ?? ($profilWeb->keyword ?? 'diskominfo, sumbawa, kabupaten sumbawa, pemerintah sumbawa, layanan publik, e-government') }}" />
+    <meta name="author" content="{{ $profilWeb->nama ?? 'Diskominfo Kabupaten Sumbawa' }}" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="{{ $ogType ?? 'website' }}" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:title" content="{{ $ogTitle ?? ($title ?? ($profilWeb->nama ?? 'Diskominfo Kabupaten Sumbawa')) }}" />
+    <meta property="og:description" content="{{ $ogDescription ?? ($description ?? ($profilWeb->deskripsi ?? 'Dinas Komunikasi dan Informatika Kabupaten Sumbawa')) }}" />
+    <meta property="og:image" content="{{ $ogImage ?? ($profilWeb && $profilWeb->logo ? Storage::url($profilWeb->logo) : asset('img/default-og.jpg')) }}" />
+    <meta property="og:site_name" content="{{ $profilWeb->nama ?? 'Diskominfo Kabupaten Sumbawa' }}" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{ url()->current() }}" />
+    <meta property="twitter:title" content="{{ $twitterTitle ?? ($ogTitle ?? ($title ?? ($profilWeb->nama ?? 'Diskominfo Kabupaten Sumbawa'))) }}" />
+    <meta property="twitter:description" content="{{ $twitterDescription ?? ($ogDescription ?? ($description ?? ($profilWeb->deskripsi ?? 'Dinas Komunikasi dan Informatika Kabupaten Sumbawa'))) }}" />
+    <meta property="twitter:image" content="{{ $twitterImage ?? ($ogImage ?? ($profilWeb && $profilWeb->logo ? Storage::url($profilWeb->logo) : asset('img/default-og.jpg'))) }}" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}" />
+    
+    <!-- Favicon -->
+    @if($profilWeb && $profilWeb->logo)
+    <link rel="icon" type="image/x-icon" href="{{ Storage::url($profilWeb->logo) }}" />
+    <link rel="apple-touch-icon" href="{{ Storage::url($profilWeb->logo) }}" />
+    @else
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
+    @endif
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -39,7 +71,7 @@
               @endif
               <div class="header-title">
                 <h1>{{ $profilWeb->nama ?? 'Dinas Komunikasi dan Informatika' }}</h1>
-                <p>Kabupaten Sumbawa - Provinsi Nusa Tenggara Barat</p>
+                <p>Kabupaten Sumbawa</p>
               </div>
             </div>
           </div>
@@ -66,7 +98,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <a wire:navigate href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
+              <a wire:navigatee href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
                 <i class="fas fa-home me-1"></i> Beranda
               </a>
             </li>
@@ -77,46 +109,21 @@
                 <i class="fas fa-info-circle me-1"></i> Profil
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#profil">Tentang Kami</a></li>
-                <li><a class="dropdown-item" href="#visi-misi">Visi & Misi</a></li>
-                <li><a class="dropdown-item" href="#struktur">Struktur Organisasi</a></li>
-                <li><a class="dropdown-item" href="#tupoksi">Tugas & Fungsi</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li class="dropdown-submenu">
-                  <a class="dropdown-item dropdown-toggle" href="#">Pejabat</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#kepala">Kepala Dinas</a></li>
-                    <li><a class="dropdown-item" href="#sekretaris">Sekretaris</a></li>
-                    <li><a class="dropdown-item" href="#kabid">Kepala Bidang</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
-            <!-- Layanan with Submenu -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="fas fa-concierge-bell me-1"></i> Layanan
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Perizinan Online</a></li>
-                <li><a class="dropdown-item" href="#">Pengaduan Masyarakat</a></li>
-                <li><a class="dropdown-item" href="#">Informasi Publik</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li class="dropdown-submenu">
-                  <a class="dropdown-item dropdown-toggle" href="#">Aplikasi</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Sistem Bencana</a></li>
-                    <li><a class="dropdown-item" href="#">E-Government</a></li>
-                    <li><a class="dropdown-item" href="#">Smart City</a></li>
-                  </ul>
-                </li>
-                <li><a class="dropdown-item" href="#">Download Formulir</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/visi-misi') }}">Visi & Misi</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/struktur-organisasi') }}">Struktur Organisasi</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/tugas-fungsi') }}">Tugas & Fungsi</a></li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a wire:navigate href="{{ url('/berita') }}" class="nav-link {{ request()->is('berita*') ? 'active' : '' }}">
+              <a wire:navigatee href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan*') ? 'active' : '' }}">
+                <i class="fas fa-concierge-bell me-1"></i> Layanan
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a wire:navigatee href="{{ url('/berita') }}" class="nav-link {{ request()->is('berita*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper me-1"></i> Berita
               </a>
             </li>
@@ -127,27 +134,25 @@
                 <i class="fas fa-database me-1"></i> Informasi
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Pengumuman</a></li>
-                <li><a class="dropdown-item" href="#">Agenda Kegiatan</a></li>
-                <li><a class="dropdown-item" href="#">Data Statistik</a></li>
-                <li><a class="dropdown-item" href="#">Dokumen Publik</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/agenda') }}">Agenda Kegiatan</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/dokumen') }}">Dokumen Publik</a></li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#galeri">
+              <a wire:navigatee href="{{ url('/galeri') }}" class="nav-link {{ request()->is('galeri*') ? 'active' : '' }}">
                 <i class="fas fa-images me-1"></i> Galeri
               </a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#kontak">
+              <a wire:navigatee href="{{ url('/kontak') }}" class="nav-link {{ request()->is('kontak*') ? 'active' : '' }}">
                 <i class="fas fa-phone-alt me-1"></i> Kontak
               </a>
             </li>
           </ul>
           <div class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Cari..." style="width: 200px" />
+            <input class="form-control-cari me-2" type="search" placeholder="Cari..." style="width: 200px" />
             <button class="btn btn-outline-primary" type="submit">
               <i class="fas fa-search"></i>
             </button>
@@ -163,76 +168,79 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-4 mb-4">
-            <h5>{{ $profilWeb->nama ?? 'Dinas Komunikasi dan Informatika' }}</h5>
-            <p class="text-muted">
+            <h5 class="footer-title">{{ $profilWeb->nama ?? 'Dinas Komunikasi dan Informatika' }}</h5>
+            <p class="footer-text">
               {{ $profilWeb->deskripsi ?? 'Kabupaten Sumbawa, Provinsi Nusa Tenggara Barat' }}
             </p>
             <div class="social-icons mt-3">
               @if($profilWeb && $profilWeb->facebook)
-                <a href="{{ $profilWeb->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="{{ $profilWeb->facebook }}" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
               @endif
               @if($profilWeb && $profilWeb->twitter)
-                <a href="{{ $profilWeb->twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="{{ $profilWeb->twitter }}" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
               @endif
               @if($profilWeb && $profilWeb->instagram)
-                <a href="{{ $profilWeb->instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="{{ $profilWeb->instagram }}" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
               @endif
               @if($profilWeb && $profilWeb->youtube)
-                <a href="{{ $profilWeb->youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="{{ $profilWeb->youtube }}" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
               @endif
             </div>
           </div>
 
           <div class="col-lg-2 col-md-6 mb-4">
-            <h5>Menu Cepat</h5>
-            <ul>
+            <h5 class="footer-title">Menu Cepat</h5>
+            <ul class="footer-links">
               <li><a href="{{ url('/') }}">Beranda</a></li>
-              <li><a href="#profil">Profil</a></li>
-              <li><a href="#layanan">Layanan</a></li>
+              <li><a href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
+              <li><a href="{{ url('/layanan') }}">Layanan</a></li>
               <li><a href="{{ url('/berita') }}">Berita</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 mb-4">
-            <h5>Layanan</h5>
-            <ul>
-              <li><a href="#">Perizinan Online</a></li>
-              <li><a href="#">Pengaduan</a></li>
-              <li><a href="#">Informasi Publik</a></li>
-              <li><a href="#">Download</a></li>
+            <h5 class="footer-title">Layanan</h5>
+            <ul class="footer-links">
+              <li><a href="{{ url('/layanan') }}">Layanan Publik</a></li>
+              <li><a href="{{ url('/pengaduan-baru') }}">Pengaduan</a></li>
+              <li><a href="{{ url('/dokumen') }}">Dokumen Publik</a></li>
+              <li><a href="{{ url('/galeri') }}">Galeri</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 mb-4">
-            <h5>Kontak</h5>
-            <ul class="list-unstyled">
-              <li class="mb-2">
-                <i class="fas fa-map-marker-alt me-2"></i>
-                {{ $profilWeb->alamat ?? 'Jl. Garuda No. 1, Sumbawa Besar' }}
+            <h5 class="footer-title">Kontak</h5>
+            <ul class="footer-contact">
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ $profilWeb->alamat ?? 'Jl. Garuda No. 1, Sumbawa Besar' }}</span>
               </li>
-              <li class="mb-2">
-                <i class="fas fa-phone me-2"></i>
-                {{ $profilWeb->telp ?? '(0371) 123456' }}
+              <li>
+                <i class="fas fa-phone"></i>
+                <span>{{ $profilWeb->telp ?? '(0371) 123456' }}</span>
               </li>
-              <li class="mb-2">
-                <i class="fas fa-envelope me-2"></i>
-                {{ $profilWeb->email ?? 'diskominfo@sumbawakab.go.id' }}
+              <li>
+                <i class="fas fa-envelope"></i>
+                <span>{{ $profilWeb->email ?? 'diskominfo@sumbawakab.go.id' }}</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <hr class="mt-4 mb-4" style="border-color: rgba(255, 255, 255, 0.1)" />
+        <hr class="footer-divider" />
 
         <div class="row">
           <div class="col-md-6 text-center text-md-start">
-            <p class="mb-0 text-muted">
-              &copy; {{ date('Y') }} {{ $profilWeb->nama ?? 'Diskominfo Kabupaten Sumbawa' }}. All Rights Reserved.
+            <p class="footer-copyright">
+              &copy; {{ date('Y') }} Dinas Komunikasi Informatika Statistik dan Persandian Kabupaten Sumbawa.
             </p>
           </div>
           <div class="col-md-6 text-center text-md-end">
-            <p class="mb-0 text-muted">
-              <i class="fas fa-users me-2"></i> Pengunjung: <strong>125,432</strong>
+            <p class="footer-visitor">
+              <i class="fas fa-users me-2"></i> Pengunjung: <strong>{{ number_format($totalVisitors ?? 0) }}</strong>
+              <span class="ms-3">
+                  <i class="fas fa-calendar-day me-1"></i> Hari Ini: <strong>{{ number_format($todayVisitors ?? 0) }}</strong>
+              </span>
             </p>
           </div>
         </div>
@@ -404,15 +412,6 @@
         if (e.key === "Escape") {
           closeLightbox();
         }
-      });
-
-      // Video Player
-      const videoItems = document.querySelectorAll(".video-item");
-      videoItems.forEach((item) => {
-        item.addEventListener("click", function () {
-          const videoTitle = this.querySelector("h6").textContent;
-          alert("Memutar video: " + videoTitle + "\n\nDalam implementasi nyata, ini akan membuka video player atau YouTube embed.");
-        });
       });
 
       // Load More Button

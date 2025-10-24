@@ -41,10 +41,12 @@ class LayananResource extends Resource
                     ->columnSpanFull()
                     ->maxLength(255),
 
-                Forms\Components\Textarea::make('deskripsi_full')
+                Forms\Components\RichEditor::make('deskripsi_full')
                     ->label('Deskripsi Lengkap')
-                    ->columnSpanFull()
-                    ->rows(5),
+                    ->toolbarButtons([
+                        'bold', 'italic', 'underline', 'strike', 'link', 'bulletList', 'orderedList', 'undo', 'redo',
+                    ])
+                    ->columnSpanFull(),
 
                 Forms\Components\FileUpload::make('thumb')
                     ->label('Thumbnail')

@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Add visitor tracking middleware to web group
+        $middleware->web(append: [
+            \App\Http\Middleware\TrackVisitor::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

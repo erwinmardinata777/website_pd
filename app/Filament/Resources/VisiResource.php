@@ -17,7 +17,7 @@ class VisiResource extends Resource
 {
     protected static ?string $model = Visi::class;
     protected static ?string $navigationIcon = 'heroicon-o-eye';
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = 'Profil';
     protected static ?string $pluralModelLabel = 'Visi';
     protected static ?string $modelLabel = 'Visi';
     protected static ?int $navigationSort = 4; // urutan pertama

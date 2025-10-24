@@ -114,7 +114,7 @@
           <div class="col-lg-6" data-aos="fade-right">
             <div class="profil-img">
               <img
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop"
+                src="{{ $profil->bg ? Storage::url($profil->bg) : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop' }}"
                 alt="Profil"
               />
             </div>
@@ -122,29 +122,12 @@
           <div class="col-lg-6" data-aos="fade-left">
             <div class="profil-content">
               <h3 class="mb-4" style="color: #1e3c72; font-weight: 700">
-                Dinas Komunikasi dan Informatika
+                {{  $profil->nama }}
               </h3>
 
-              <h5 style="color: #2a5298; font-weight: 600">Visi</h5>
-              <p style="color: #555; line-height: 1.8">
-                "Terwujudnya Teknologi Informasi dan Komunikasi yang Inovatif
-                untuk Mendukung Kabupaten Sumbawa yang Maju, Sejahtera, dan
-                Berdaya Saing"
-              </p>
-
-              <h5 class="mt-4" style="color: #2a5298; font-weight: 600">
-                Misi
-              </h5>
-              <ul style="color: #555; line-height: 1.8">
-                <li>
-                  Meningkatkan infrastruktur teknologi informasi dan komunikasi
-                </li>
-                <li>Mengembangkan sistem e-government yang terintegrasi</li>
-                <li>Meningkatkan literasi digital masyarakat</li>
-                <li>Mewujudkan transparansi dan akuntabilitas pemerintahan</li>
-                <li>Mendorong inovasi digital untuk pelayanan publik</li>
-              </ul>
-
+              <p class="text-muted">
+                {!! Str::limit(strip_tags($profil->deskripsi_full), 500) !!}
+              </p> 
               <a href="#" class="btn btn-primary mt-3">
                 <i class="fas fa-info-circle me-2"></i> Selengkapnya
               </a>
@@ -152,122 +135,48 @@
           </div>
         </div>
 
-        <!-- Struktur Organisasi dengan Swiper (Bisa Digeser) -->
-        <div class="mt-5">
+        <!-- Struktur Organisasi dengan Swiper -->
+        <div class="mt-5 justify-content-center">
           <h3 class="text-center mb-4" style="color: #1e3c72; font-weight: 700">
             Struktur Organisasi
           </h3>
 
           <div class="swiper staff-swiper">
             <div class="swiper-wrapper">
-              <!-- Staff 1 -->
+              @foreach ($pegawais as $pegawai)
               <div class="swiper-slide">
-                <div class="staff-card">
+                <div class="staff-card text-center">
                   <img
-                    src="https://randomuser.me/api/portraits/men/32.jpg"
-                    alt="Kepala Dinas"
+                    src="{{ $pegawai->foto ? Storage::url($pegawai->foto) : asset('img/default-user.png') }}"
+                    alt="{{ $pegawai->nama }}"
                   />
-                  <h6>Drs. Ahmad Yani, M.Si</h6>
-                  <p class="text-muted">Kepala Dinas</p>
+                  <h6>
+                    <a href="{{ route('pegawai.detail', $pegawai->id) }}" class="text-decoration-none text-dark" style="font-size: 16px;">
+                      {{ $pegawai->nama }}
+                    </a>
+                  </h6>
+                  <p class="text-muted" style="font-size: 14px;">{{ $pegawai->jabatan }}</p>
                   <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    @if($pegawai->facebook)
+                      <a href="{{ $pegawai->facebook }}"><i class="fab fa-facebook-f"></i></a>
+                    @endif
+                    @if($pegawai->twitter)
+                      <a href="{{ $pegawai->twitter }}"><i class="fab fa-twitter"></i></a>
+                    @endif
+                    @if($pegawai->instagram)
+                      <a href="{{ $pegawai->instagram }}"><i class="fab fa-instagram"></i></a>
+                    @endif
+                    @if($pegawai->youtube)
+                      <a href="{{ $pegawai->youtube }}"><i class="fab fa-youtube"></i></a>
+                    @endif
                   </div>
                 </div>
               </div>
-
-              <!-- Staff 2 -->
-              <div class="swiper-slide">
-                <div class="staff-card">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/45.jpg"
-                    alt="Sekretaris"
-                  />
-                  <h6>H. Budi Santoso, S.Kom</h6>
-                  <p class="text-muted">Sekretaris</p>
-                  <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Staff 3 -->
-              <div class="swiper-slide">
-                <div class="staff-card">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/44.jpg"
-                    alt="Kabid"
-                  />
-                  <h6>Sri Wahyuni, S.T, M.T</h6>
-                  <p class="text-muted">Kabid E-Government</p>
-                  <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Staff 4 -->
-              <div class="swiper-slide">
-                <div class="staff-card">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/52.jpg"
-                    alt="Kabid"
-                  />
-                  <h6>Ir. Muhammad Ridwan</h6>
-                  <p class="text-muted">Kabid Infrastruktur TIK</p>
-                  <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Staff 5 -->
-              <div class="swiper-slide">
-                <div class="staff-card">
-                  <img
-                    src="https://randomuser.me/api/portraits/women/65.jpg"
-                    alt="Kabid"
-                  />
-                  <h6>Dra. Siti Nurhaliza, M.Kom</h6>
-                  <p class="text-muted">Kabid Aplikasi Informatika</p>
-                  <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Staff 6 -->
-              <div class="swiper-slide">
-                <div class="staff-card">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/68.jpg"
-                    alt="Kabid"
-                  />
-                  <h6>Agus Supriyanto, S.Sos</h6>
-                  <p class="text-muted">Kabid Komunikasi Publik</p>
-                  <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fas fa-envelope"></i></a>
-                  </div>
-                </div>
-              </div>
+              @endforeach
             </div>
 
-            <!-- Navigation -->
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
-
-            <!-- Pagination -->
             <div class="swiper-pagination"></div>
           </div>
         </div>
@@ -296,19 +205,19 @@
               <!-- Stats -->
               <div class="stats-grid">
                 <div class="stat-box">
-                  <h3>248</h3>
+                  <h3>{{ $totalPengaduan }}</h3>
                   <p>Total Pengaduan</p>
                 </div>
                 <div class="stat-box green">
-                  <h3>187</h3>
+                  <h3>{{ $pengaduanSelesai }}</h3>
                   <p>Terselesaikan</p>
                 </div>
                 <div class="stat-box orange">
-                  <h3>45</h3>
+                  <h3>{{ $pengaduanProses }}</h3>
                   <p>Dalam Proses</p>
                 </div>
                 <div class="stat-box blue">
-                  <h3>16</h3>
+                  <h3>{{ $pengaduanBaru }}</h3>
                   <p>Pengaduan Baru</p>
                 </div>
               </div>
@@ -318,79 +227,39 @@
                 Pengaduan Terbaru
               </h6>
               <div class="pengaduan-list">
-                <div class="pengaduan-list-item">
-                  <div class="header">
-                    <h6>Jalan Rusak di Kecamatan Sumbawa</h6>
-                    <span class="badge-pengaduan badge-proses">Proses</span>
+                @forelse($pengaduanTerbaru as $p)
+                  <div class="pengaduan-list-item">
+                    <div class="header">
+                      <h6>
+                        <a href="{{ route('pengaduan.detail', $p->id) }}" class="text-decoration-none text-dark">
+                          {{ $p->pengaduan }}
+                        </a>
+                      </h6>
+                      @if($p->status == 2)
+                        <span class="badge-pengaduan badge-selesai">Selesai</span>
+                      @elseif($p->status == 1)
+                        <span class="badge-pengaduan badge-proses">Proses</span>
+                      @else
+                        <span class="badge-pengaduan badge-baru">Baru</span>
+                      @endif
+                    </div>
+                    <div class="meta">
+                      <span><i class="fas fa-user"></i> {{ $p->nama }}</span>
+                      <span><i class="fas fa-map-marker-alt"></i> {{ $p->kode_kecamatan }}</span>
+                      <span><i class="fas fa-calendar"></i> {{ \Carbon\Carbon::parse($p->tanggal_pengaduan)->format('d M Y') }}</span>
+                    </div>
                   </div>
-                  <div class="meta">
-                    <span><i class="fas fa-user"></i> Ahmad Rizki</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Sumbawa</span>
-                    <span><i class="fas fa-calendar"></i> 14 Okt 2025</span>
-                  </div>
-                </div>
-
-                <div class="pengaduan-list-item">
-                  <div class="header">
-                    <h6>Pelayanan Administrasi Lambat</h6>
-                    <span class="badge-pengaduan badge-proses">Proses</span>
-                  </div>
-                  <div class="meta">
-                    <span><i class="fas fa-user"></i> Siti Nurhaliza</span>
-                    <span
-                      ><i class="fas fa-map-marker-alt"></i> Moyo Hilir</span
-                    >
-                    <span><i class="fas fa-calendar"></i> 13 Okt 2025</span>
-                  </div>
-                </div>
-
-                <div class="pengaduan-list-item">
-                  <div class="header">
-                    <h6>Masalah Jaringan Internet Desa</h6>
-                    <span class="badge-pengaduan badge-baru">Baru</span>
-                  </div>
-                  <div class="meta">
-                    <span><i class="fas fa-user"></i> Budi Santoso</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Plampang</span>
-                    <span><i class="fas fa-calendar"></i> 15 Okt 2025</span>
-                  </div>
-                </div>
-
-                <div class="pengaduan-list-item">
-                  <div class="header">
-                    <h6>Lampu Penerangan Jalan Mati</h6>
-                    <span class="badge-pengaduan badge-selesai">Selesai</span>
-                  </div>
-                  <div class="meta">
-                    <span><i class="fas fa-user"></i> Muhammad Yusuf</span>
-                    <span
-                      ><i class="fas fa-map-marker-alt"></i> Unter Iwes</span
-                    >
-                    <span><i class="fas fa-calendar"></i> 12 Okt 2025</span>
-                  </div>
-                </div>
-
-                <div class="pengaduan-list-item">
-                  <div class="header">
-                    <h6>Kebersihan Pasar Tradisional</h6>
-                    <span class="badge-pengaduan badge-selesai">Selesai</span>
-                  </div>
-                  <div class="meta">
-                    <span><i class="fas fa-user"></i> Dewi Sartika</span>
-                    <span
-                      ><i class="fas fa-map-marker-alt"></i> Sumbawa Besar</span
-                    >
-                    <span><i class="fas fa-calendar"></i> 11 Okt 2025</span>
-                  </div>
-                </div>
+                @empty
+                  <p class="text-muted">Belum ada pengaduan.</p>
+                @endforelse
               </div>
 
               <!-- Action Buttons -->
               <div class="mt-4 d-grid gap-2">
-                <a href="#" class="quick-action-btn">
+                <a href="{{ route('pengaduan.form') }}" class="quick-action-btn">
                   <i class="fas fa-plus-circle"></i> Buat Pengaduan Baru
                 </a>
-                <a href="#" class="btn-link-custom justify-content-center">
+                <a href="{{ route('pengaduan.list') }}" class="btn-link-custom justify-content-center">
                   Lihat Semua Pengaduan <i class="fas fa-arrow-right"></i>
                 </a>
               </div>
@@ -537,348 +406,256 @@
 
     <!-- Galeri Foto & Video Section -->
     <section id="galeri" class="galeri-section">
-      <div class="container">
-        <div class="section-title" data-aos="fade-up">
-          <h2>Galeri Media</h2>
-          <p class="text-muted mt-3">
-            Dokumentasi kegiatan dan aktivitas Diskominfo Kabupaten Sumbawa
-          </p>
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Galeri Media</h2>
+                <p class="text-muted mt-3">
+                    Dokumentasi kegiatan dan aktivitas Diskominfo Kabupaten Sumbawa
+                </p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="galeri-tabs" data-aos="fade-up">
+                <button class="galeri-tab active" data-tab="foto">
+                    <i class="fas fa-images"></i> Foto
+                </button>
+                <button class="galeri-tab" data-tab="video">
+                    <i class="fas fa-video"></i> Video
+                </button>
+            </div>
+
+            <!-- Photo Gallery -->
+            <div class="photo-grid active" id="photoGallery" data-aos="fade-up">
+                @forelse($kategoriFotos as $kategori)
+                    @if($kategori->fotos->first())
+                    <div class="photo-item" onclick="openLightbox('{{ Storage::url($kategori->fotos->first()->gambar) }}')">
+                        <img src="{{ Storage::url($kategori->fotos->first()->gambar) }}" 
+                            alt="{{ $kategori->nama_kategori }}" />
+                        <div class="zoom-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <div class="photo-overlay">
+                            <h6>
+                                <a href="{{ route('galeri.foto.detail', $kategori->slug) }}" 
+                                  style="color: white; text-decoration: none;"
+                                  onclick="event.stopPropagation();">
+                                    {{ $kategori->nama_kategori }}
+                                </a>
+                            </h6>
+                            <div class="meta">
+                                <span>
+                                    <i class="fas fa-calendar"></i> 
+                                    {{ \Carbon\Carbon::parse($kategori->tanggal)->format('d M Y') }}
+                                </span>
+                                <span>
+                                    <i class="fas fa-eye"></i> 
+                                    {{ number_format($kategori->hits) }} views
+                                </span>
+                                <span>
+                                    <i class="fas fa-images"></i> 
+                                    {{ $kategori->fotos->count() }} foto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                @empty
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-images" style="font-size: 80px; color: #e0e0e0;"></i>
+                        <p class="mt-3 text-muted">Belum ada foto tersedia</p>
+                    </div>
+                @endforelse
+            </div>
+
+            <!-- Video Gallery -->
+            <div class="video-grid" id="videoGallery" data-aos="fade-up">
+                @forelse($videos as $video)
+                <div class="video-item">
+                    <div class="video-thumbnail" onclick="playVideo('{{ $video->url }}', '{{ addslashes($video->judul) }}')">
+                        @php
+                            // Extract video ID from YouTube URL
+                            $videoId = null;
+                            if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $video->url, $matches)) {
+                                $videoId = $matches[1];
+                            }
+                        @endphp
+                        
+                        @if($videoId)
+                            <img src="https://img.youtube.com/vi/{{ $videoId }}/maxresdefault.jpg" 
+                                alt="{{ $video->judul }}"
+                                onerror="this.src='https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg'" />
+                        @else
+                            <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop" 
+                                alt="{{ $video->judul }}" />
+                        @endif
+                        
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h6>{{ $video->judul }}</h6>
+                        <div class="video-meta">
+                            <span>
+                                <i class="fas fa-calendar"></i> 
+                                {{ \Carbon\Carbon::parse($video->tanggal)->format('d M Y') }}
+                            </span>
+                            <span>
+                                <i class="fas fa-eye"></i> 
+                                {{ number_format($video->hits) }} views
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-video" style="font-size: 80px; color: #e0e0e0;"></i>
+                        <p class="mt-3 text-muted">Belum ada video tersedia</p>
+                    </div>
+                @endforelse
+            </div>
+
+            <!-- Load More Button -->
+            @if($kategoriFotos->count() >= 9 || $videos->count() >= 6)
+            <div class="load-more-btn">
+                <a href="{{ route('galeri.index') }}" class="btn" style="background: none; border: none; color: inherit;">
+                    <i class="fas fa-images me-2"></i> Lihat Semua Galeri
+                </a>
+            </div>
+            @endif
         </div>
-
-        <!-- Featured Media -->
-        <div class="featured-media" data-aos="fade-up">
-          <div class="featured-content">
-            <img
-              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=450&fit=crop"
-              alt="Featured"
-            />
-            <div class="featured-overlay">
-              <span class="badge"
-                ><i class="fas fa-star me-2"></i> Highlight</span
-              >
-              <h3>Launching Smart City Command Center 2025</h3>
-              <p>
-                <i class="fas fa-calendar-alt me-2"></i> 25 Oktober 2025 |
-                <i class="fas fa-map-marker-alt ms-3 me-2"></i> Kantor Bupati
-                Sumbawa
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tabs -->
-        <div class="galeri-tabs" data-aos="fade-up">
-          <button class="galeri-tab active" data-tab="foto">
-            <i class="fas fa-images"></i> Foto
-          </button>
-          <button class="galeri-tab" data-tab="video">
-            <i class="fas fa-video"></i> Video
-          </button>
-        </div>
-
-        <!-- Photo Gallery -->
-        <div class="photo-grid active" id="photoGallery" data-aos="fade-up">
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400&h=300&fit=crop"
-              alt="Workshop Digital"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Workshop Digital Marketing</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 10 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 245 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop"
-              alt="Rapat Koordinasi"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Rapat Koordinasi E-Government</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 08 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 189 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=300&fit=crop"
-              alt="Pelatihan ASN"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Pelatihan Keamanan Siber ASN</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 05 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 312 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop"
-              alt="Team Building"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Team Building Diskominfo</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 03 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 276 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1542744094-3a31f272c490?w=400&h=300&fit=crop"
-              alt="Sosialisasi"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Sosialisasi Aplikasi Layanan</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 01 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 198 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=300&fit=crop"
-              alt="Seminar"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Seminar Literasi Digital</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 28 Sep 2025</span>
-                <span><i class="fas fa-eye"></i> 342 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1560439514-4e9645039924?w=400&h=300&fit=crop"
-              alt="Kunjungan"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Kunjungan Kominfo Pusat</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 25 Sep 2025</span>
-                <span><i class="fas fa-eye"></i> 425 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=300&fit=crop"
-              alt="Launching"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Launching Website Baru</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 20 Sep 2025</span>
-                <span><i class="fas fa-eye"></i> 567 views</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="photo-item">
-            <img
-              src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=400&h=300&fit=crop"
-              alt="Monitoring"
-            />
-            <div class="zoom-icon">
-              <i class="fas fa-search-plus"></i>
-            </div>
-            <div class="photo-overlay">
-              <h6>Monitoring Sistem IT</h6>
-              <div class="meta">
-                <span><i class="fas fa-calendar"></i> 18 Sep 2025</span>
-                <span><i class="fas fa-eye"></i> 156 views</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Video Gallery -->
-        <div class="video-grid" id="videoGallery" data-aos="fade-up">
-          <div class="video-item">
-            <div class="video-thumbnail">
-              <img
-                src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop"
-                alt="Video"
-              />
-              <div class="play-button">
-                <i class="fas fa-play"></i>
-              </div>
-              <div class="video-duration">12:34</div>
-            </div>
-            <div class="video-info">
-              <h6>Tutorial Penggunaan Aplikasi Smart City</h6>
-              <div class="video-meta">
-                <span><i class="fas fa-calendar"></i> 12 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 1,234 views</span>
-                <span><i class="fas fa-thumbs-up"></i> 89 likes</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-item">
-            <div class="video-thumbnail">
-              <img
-                src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=250&fit=crop"
-                alt="Video"
-              />
-              <div class="play-button">
-                <i class="fas fa-play"></i>
-              </div>
-              <div class="video-duration">08:15</div>
-            </div>
-            <div class="video-info">
-              <h6>Profil Dinas Kominfo Kabupaten Sumbawa</h6>
-              <div class="video-meta">
-                <span><i class="fas fa-calendar"></i> 10 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 2,456 views</span>
-                <span><i class="fas fa-thumbs-up"></i> 156 likes</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-item">
-            <div class="video-thumbnail">
-              <img
-                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop"
-                alt="Video"
-              />
-              <div class="play-button">
-                <i class="fas fa-play"></i>
-              </div>
-              <div class="video-duration">15:42</div>
-            </div>
-            <div class="video-info">
-              <h6>Workshop Digital Marketing untuk UMKM</h6>
-              <div class="video-meta">
-                <span><i class="fas fa-calendar"></i> 08 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 987 views</span>
-                <span><i class="fas fa-thumbs-up"></i> 67 likes</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-item">
-            <div class="video-thumbnail">
-              <img
-                src="https://images.unsplash.com/photo-1487611459768-bd414656ea10?w=400&h=250&fit=crop"
-                alt="Video"
-              />
-              <div class="play-button">
-                <i class="fas fa-play"></i>
-              </div>
-              <div class="video-duration">10:28</div>
-            </div>
-            <div class="video-info">
-              <h6>Sosialisasi E-Government untuk OPD</h6>
-              <div class="video-meta">
-                <span><i class="fas fa-calendar"></i> 05 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 756 views</span>
-                <span><i class="fas fa-thumbs-up"></i> 45 likes</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-item">
-            <div class="video-thumbnail">
-              <img
-                src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?w=400&h=250&fit=crop"
-                alt="Video"
-              />
-              <div class="play-button">
-                <i class="fas fa-play"></i>
-              </div>
-              <div class="video-duration">07:52</div>
-            </div>
-            <div class="video-info">
-              <h6>Pelatihan Keamanan Siber untuk ASN</h6>
-              <div class="video-meta">
-                <span><i class="fas fa-calendar"></i> 03 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 1,523 views</span>
-                <span><i class="fas fa-thumbs-up"></i> 112 likes</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="video-item">
-            <div class="video-thumbnail">
-              <img
-                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=250&fit=crop"
-                alt="Video"
-              />
-              <div class="play-button">
-                <i class="fas fa-play"></i>
-              </div>
-              <div class="video-duration">20:15</div>
-            </div>
-            <div class="video-info">
-              <h6>Dokumentasi Launching Aplikasi Pelaporan Bencana</h6>
-              <div class="video-meta">
-                <span><i class="fas fa-calendar"></i> 01 Okt 2025</span>
-                <span><i class="fas fa-eye"></i> 1,890 views</span>
-                <span><i class="fas fa-thumbs-up"></i> 178 likes</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Load More Button -->
-        <div class="load-more-btn">
-          <button>
-            <i class="fas fa-sync-alt me-2"></i> Muat Lebih Banyak
-          </button>
-        </div>
-      </div>
     </section>
 
     <!-- Lightbox Modal -->
     <div class="lightbox-modal" id="lightboxModal">
-      <div class="lightbox-close" onclick="closeLightbox()">
-        <i class="fas fa-times"></i>
-      </div>
-      <div class="lightbox-content">
-        <img src="" alt="Lightbox Image" id="lightboxImage" />
-      </div>
+        <div class="lightbox-close" onclick="closeLightbox()">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="lightbox-content">
+            <img src="" alt="Lightbox Image" id="lightboxImage" />
+        </div>
     </div>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content" style="background: #000; border: none; border-radius: 15px; overflow: hidden;">
+                <div class="modal-header" style="border: none; padding: 15px 20px; background: rgba(0,0,0,0.5);">
+                    <h5 class="modal-title" style="color: white; font-weight: 600;" id="videoModalLabel"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding: 0;">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="videoIframe" src="" frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lightbox Functions
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightboxModal');
+            const lightboxImage = document.getElementById('lightboxImage');
+            lightboxImage.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightboxModal');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox on background click
+        document.getElementById('lightboxModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Close lightbox with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Play Video Function
+        function playVideo(url, title) {
+            console.log('Playing video:', url, title);
+            
+            // Convert YouTube URL to embed URL
+            let embedUrl = url;
+            
+            try {
+                // Handle different YouTube URL formats
+                if (url.includes('youtube.com/watch?v=')) {
+                    const videoId = url.split('v=')[1].split('&')[0];
+                    embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                } else if (url.includes('youtu.be/')) {
+                    const videoId = url.split('youtu.be/')[1].split('?')[0];
+                    embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                } else if (url.includes('youtube.com/embed/')) {
+                    embedUrl = url.includes('?') ? url + '&autoplay=1' : url + '?autoplay=1';
+                }
+                
+                console.log('Embed URL:', embedUrl);
+                
+                // Set modal content
+                document.getElementById('videoModalLabel').textContent = title;
+                document.getElementById('videoIframe').src = embedUrl;
+                
+                // Show modal using Bootstrap 5
+                const modalElement = document.getElementById('videoModal');
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+                
+                // Clear iframe when modal is hidden
+                modalElement.addEventListener('hidden.bs.modal', function () {
+                    document.getElementById('videoIframe').src = '';
+                }, { once: true });
+                
+            } catch (error) {
+                console.error('Error playing video:', error);
+                alert('Gagal memutar video. Silakan coba lagi.');
+            }
+        }
+
+        // Gallery Tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            const galeriTabs = document.querySelectorAll('.galeri-tab');
+            const photoGallery = document.getElementById('photoGallery');
+            const videoGallery = document.getElementById('videoGallery');
+
+            galeriTabs.forEach((tab) => {
+                tab.addEventListener('click', function () {
+                    // Remove active class from all tabs
+                    galeriTabs.forEach((t) => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const tabType = this.getAttribute('data-tab');
+
+                    // Toggle galleries
+                    if (tabType === 'foto') {
+                        photoGallery.style.display = 'grid';
+                        photoGallery.classList.add('active');
+                        videoGallery.style.display = 'none';
+                        videoGallery.classList.remove('active');
+                    } else {
+                        photoGallery.style.display = 'none';
+                        photoGallery.classList.remove('active');
+                        videoGallery.style.display = 'grid';
+                        videoGallery.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 
     <!-- Link Terkait -->
     <section class="section-padding bg-light">

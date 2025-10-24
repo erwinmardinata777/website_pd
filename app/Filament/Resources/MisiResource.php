@@ -18,7 +18,7 @@ class MisiResource extends Resource
     protected static ?string $model = Misi::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-flag';
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = 'Profil';
     protected static ?string $pluralModelLabel = 'Misi';
     protected static ?string $modelLabel = 'Misi';
     protected static ?int $navigationSort = 5; // urutan pertama

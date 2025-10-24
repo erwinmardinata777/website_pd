@@ -20,7 +20,7 @@ class ProfilWebResource extends Resource
     protected static ?string $navigationLabel = 'Profil Website';
     protected static ?string $modelLabel = 'Profil Web';
     protected static ?string $pluralLabel = 'Profil Web';
-    protected static ?string $navigationGroup = 'Pengaturan Web';
+    protected static ?string $navigationGroup = 'Profil';
     protected static ?int $navigationSort = 1; // urutan pertama
 
     public static function form(Form $form): Form
@@ -34,10 +34,11 @@ class ProfilWebResource extends Resource
                     ->maxLength(255),
 
                 Forms\Components\Textarea::make('deskripsi')
+                    ->label('Deskripsi Singkat')
                     ->columnSpanFull()
                     ->rows(3),
                 Forms\Components\RichEditor::make('deskripsi_full')
-                    ->label('Deskripsi Lengkap')
+                    ->label('Deskripsi Lengkap Tentang OPD')
                     ->toolbarButtons([
                         'bold', 'italic', 'underline', 'strike',
                         'link', 'orderedList', 'unorderedList',

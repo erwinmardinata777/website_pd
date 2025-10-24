@@ -19,10 +19,10 @@ class PegawaiResource extends Resource
     protected static ?string $model = Pegawai::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationGroup = 'Manajemen Konten';
+    protected static ?string $navigationGroup = 'Profil';
     protected static ?string $pluralModelLabel = 'Pegawai';
     protected static ?string $modelLabel = 'Pegawai';
-    protected static ?int $navigationSort = 1; // urutan pertama
+    protected static ?int $navigationSort = 4; // urutan pertama
 
     public static function form(Form $form): Form
     {
