@@ -37,7 +37,7 @@
     <section class="content-section">
         <div class="container">
             <!-- Statistics Cards -->
-            <div class="bidang-stats" data-aos="fade-up">
+            <!-- <div class="bidang-stats" data-aos="fade-up">
                 <div class="bidang-stat-card">
                     <div class="bidang-stat-icon">
                         <i class="fas fa-building"></i>
@@ -56,10 +56,10 @@
                         <p>Pegawai Terdistribusi</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Search Bar -->
-            <div class="bidang-search" data-aos="fade-up">
+            <!-- <div class="bidang-search" data-aos="fade-up">
                 <div class="search-box-bidang">
                     <i class="fas fa-search"></i>
                     <input type="text" 
@@ -67,7 +67,7 @@
                            placeholder="Cari bidang..." />
                 </div>
             </div>
-
+ -->
             <!-- Bidang Grid -->
             <div class="bidang-grid" data-aos="fade-up">
                 @forelse($bidangs as $index => $bidang)
@@ -89,7 +89,7 @@
                     </div>
                     <div class="bidang-content">
                         <h4>{{ $bidang->nama_bidang }}</h4>
-                        <p>{{ Str::limit($bidang->deskripsi ?? 'Deskripsi bidang belum tersedia', 100) }}</p>
+                        <p>{!! Str::limit($bidang->deskripsi ?? 'Deskripsi bidang belum tersedia', 100) !!}</p>
                         <a href="{{ route('bidang.detail', $bidang->id) }}" class="btn-bidang-detail">
                             <i class="fas fa-arrow-right me-2"></i>
                             Lihat Detail

@@ -64,7 +64,7 @@
             @if($bidang->deskripsi)
             <div class="bidang-description-card" data-aos="fade-up" data-aos-delay="100">
                 <h4><i class="fas fa-info-circle me-2"></i> Deskripsi</h4>
-                <p>{{ $bidang->deskripsi }}</p>
+                <p>{!! $bidang->deskripsi !!}</p>
             </div>
             @endif
 
