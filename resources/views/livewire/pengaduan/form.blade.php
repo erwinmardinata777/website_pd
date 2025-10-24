@@ -347,7 +347,7 @@ select:disabled {
                             </div>
                         </div>
 
-                        <div class="info-item">
+                        <!-- <div class="info-item">
                             <i class="fas fa-headset"></i>
                             <div class="info-item-text">
                                 <strong>Kontak Bantuan</strong>
@@ -355,7 +355,7 @@ select:disabled {
                                     WA: 0812-3456-7890<br />Email: pengaduan@sumbawakab.go.id
                                 </p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                     <!-- Statistics -->
@@ -393,7 +393,7 @@ select:disabled {
                     </div>
 
                     <!-- Contact Box -->
-                    <div class="stats-box" data-aos="fade-up" data-aos-delay="200">
+                    <!-- <div class="stats-box" data-aos="fade-up" data-aos-delay="200">
                         <h5 style="color: #1e3c72; font-weight: 700; margin-bottom: 20px">
                             <i class="fas fa-phone-alt me-2"></i> Butuh Bantuan?
                         </h5>
@@ -414,7 +414,7 @@ select:disabled {
                                 <strong>pengaduan@sumbawakab.go.id</strong>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Quick Action -->
                     <div class="stats-box" data-aos="fade-up" data-aos-delay="300"

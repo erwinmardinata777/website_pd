@@ -30,7 +30,6 @@ class SliderResource extends Resource
                 Forms\Components\TextInput::make('judul')
                     ->label('Judul')
                     ->columnSpanFull()
-                    ->required()
                     ->maxLength(255),
 
                 Forms\Components\FileUpload::make('gambar')
