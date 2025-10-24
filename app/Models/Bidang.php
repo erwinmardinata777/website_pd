@@ -8,6 +8,7 @@ class Bidang extends Model
 {
     protected $fillable = [
         'nama_bidang',
+        'thumb',
         'deskripsi',
     ];
 

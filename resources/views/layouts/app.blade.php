@@ -113,6 +113,7 @@
                 <li><a class="dropdown-item" wire:navigatee href="{{ url('/visi-misi') }}">Visi & Misi</a></li>
                 <li><a class="dropdown-item" wire:navigatee href="{{ url('/struktur-organisasi') }}">Struktur Organisasi</a></li>
                 <li><a class="dropdown-item" wire:navigatee href="{{ url('/tugas-fungsi') }}">Tugas & Fungsi</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/bidang') }}">Bidang</a></li>
               </ul>
             </li>
 

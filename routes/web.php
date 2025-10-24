@@ -11,6 +11,8 @@ Route::get('/pegawai/{id}', App\Livewire\Pegawai\Detail::class)->name('pegawai.d
 Route::get('/visi-misi', App\Livewire\VisiMisi\Index::class)->name('visi-misi.index');
 Route::get('/tugas-fungsi', App\Livewire\TugasFungsi\Index::class)->name('tugas-fungsi.index');
 Route::get('/tentang-kami', App\Livewire\TentangKami\Index::class)->name('tentang-kami.index');
+Route::get('/bidang', App\Livewire\Bidang\Index::class)->name('bidang.index');
+Route::get('/bidang/{id}', App\Livewire\Bidang\Detail::class)->name('bidang.detail');
 
 Route::get('/pengaduan', App\Livewire\Pengaduan\ListPengaduan::class)->name('pengaduan.list');
 Route::get('/pengaduan/{id}', App\Livewire\Pengaduan\Detail::class)->name('pengaduan.detail');
