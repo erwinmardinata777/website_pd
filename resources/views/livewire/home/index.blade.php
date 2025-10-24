@@ -128,7 +128,7 @@
               <p class="text-muted">
                 {!! Str::limit(strip_tags($profil->deskripsi_full), 500) !!}
               </p> 
-              <a href="#" class="btn btn-primary mt-3">
+              <a href="{{ url('tentang-kami') }}" class="btn btn-primary mt-3">
                 <i class="fas fa-info-circle me-2"></i> Selengkapnya
               </a>
             </div>
