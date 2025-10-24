@@ -24,9 +24,6 @@
     <section class="page-header">
         <div class="container position-relative">
             <h1 data-aos="fade-up">Bidang</h1>
-            <p data-aos="fade-up" data-aos-delay="100">
-                Daftar Bidang di Diskominfo Kabupaten Sumbawa
-            </p>
             <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Beranda</a></li>
