@@ -16,10 +16,10 @@ class LayananResource extends Resource
 {
     protected static ?string $model = Layanan::class;
     protected static ?string $navigationIcon = 'heroicon-o-cog';
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = 'Profil';
     protected static ?string $navigationLabel = 'Layanan';
     protected static ?string $pluralLabel = 'Daftar Layanan';
-    protected static ?int $navigationSort = 3; // urutan pertama
+    protected static ?int $navigationSort = 5; // urutan pertama
 
     public static function form(Form $form): Form
     {

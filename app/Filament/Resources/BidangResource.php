@@ -20,8 +20,8 @@ class BidangResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
     protected static ?string $navigationLabel = 'Bidang';
     protected static ?string $pluralModelLabel = 'Bidang';
-    protected static ?string $navigationGroup = 'Konten Website';
-    protected static ?int $navigationSort = 2; // urutan pertama
+    protected static ?string $navigationGroup = 'Profil';
+    protected static ?int $navigationSort = 6; // urutan pertama
 
     public static function form(Form $form): Form
     {
@@ -32,6 +32,14 @@ class BidangResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
+
+                Forms\Components\FileUpload::make('thumb')
+                    ->label('Thumbnail')
+                    ->columnSpanFull()
+                    ->directory('thumbs/bidang')
+                    ->image()
+                    ->imagePreviewHeight('150')
+                    ->maxSize(2048),
 
                 Forms\Components\RichEditor::make('deskripsi')
                     ->label('Deskripsi')

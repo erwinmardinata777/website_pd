@@ -18,10 +18,10 @@ class LinkTerkaitResource extends Resource
     protected static ?string $model = LinkTerkait::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-link';
-    protected static ?string $navigationGroup = 'Konten Website';
+    protected static ?string $navigationGroup = 'Manajemen Konten';
     protected static ?string $pluralModelLabel = 'Link Terkait';
     protected static ?string $modelLabel = 'Link Terkait';
-    protected static ?int $navigationSort = 6; // urutan pertama
+    protected static ?int $navigationSort = 5; // urutan pertama
 
     public static function form(Form $form): Form
     {
