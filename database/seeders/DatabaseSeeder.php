@@ -21,5 +21,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@sumbawakab.go.id',
             'password' => Hash::make('Sumbawa@1959'),
         ]);        
+
+        // Jalankan seeder tambahan
+        $this->call([
+            KecamatanSeeder::class,
+            DesaSeeder::class,
+        ]);        
     }
 }
