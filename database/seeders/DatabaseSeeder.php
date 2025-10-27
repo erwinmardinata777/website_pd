@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             KecamatanSeeder::class,
             DesaSeeder::class,
+            LinkTerkaitSeeder::class,
         ]);        
     }
 }
