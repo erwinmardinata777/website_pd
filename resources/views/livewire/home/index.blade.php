@@ -122,11 +122,11 @@
           <div class="col-lg-6" data-aos="fade-left">
             <div class="profil-content">
               <h3 class="mb-4" style="color: #1e3c72; font-weight: 700">
-                {{  $profil->nama }}
+                {{  $profil->nama ? $profil->nama : 'Nama Perangkat Daerah' }}
               </h3>
 
               <p class="text-muted">
-                {!! Str::limit(strip_tags($profil->deskripsi_full), 500) !!}
+                {!! Str::limit(strip_tags($profil->deskripsi_full ? $profil->deskripsi_full : 'Deskripsi tidak tersedia'), 500) !!}
               </p> 
               <a href="{{ url('tentang-kami') }}" class="btn btn-primary mt-3">
                 <i class="fas fa-info-circle me-2"></i> Selengkapnya

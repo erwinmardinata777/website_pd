@@ -67,10 +67,10 @@
               @if($profilWeb && $profilWeb->logo)
                 <img src="{{ Storage::url($profilWeb->logo) }}" alt="{{ $profilWeb->nama }}" />
               @else
-                <img src="https://via.placeholder.com/80" alt="Logo Kabupaten Sumbawa" />
+                <img src="{{ asset('image/logo-sumbawa.png') }}" alt="Logo Kabupaten Sumbawa" />
               @endif
               <div class="header-title">
-                <h1>{{ $profilWeb->nama ?? 'Dinas Komunikasi dan Informatika' }}</h1>
+                <h1>{{ $profilWeb->nama ?? 'Nama Perangkat Daerah' }}</h1>
                 <p>Kabupaten Sumbawa</p>
               </div>
             </div>
@@ -81,7 +81,7 @@
                 <i class="fas fa-phone me-2"></i> {{ $profilWeb->telp ?? '(0371) 123456' }}
               </p>
               <p class="mb-0">
-                <i class="fas fa-envelope me-2"></i> {{ $profilWeb->email ?? 'diskominfo@sumbawakab.go.id' }}
+                <i class="fas fa-envelope me-2"></i> {{ $profilWeb->email ?? 'nama_pd@sumbawakab.go.id' }}
               </p>
             </div>
           </div>
@@ -169,9 +169,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-4 mb-4">
-            <h5 class="footer-title">{{ $profilWeb->nama ?? 'Dinas Komunikasi dan Informatika' }}</h5>
+            <h5 class="footer-title">{{ $profilWeb->nama ?? 'Nama Perangkat Daerah' }}</h5>
             <p class="footer-text">
-              {{ $profilWeb->deskripsi ?? 'Kabupaten Sumbawa, Provinsi Nusa Tenggara Barat' }}
+              {{ $profilWeb->deskripsi ?? 'Kabupaten Sumbawa' }}
             </p>
             <div class="social-icons mt-3">
               @if($profilWeb && $profilWeb->facebook)
