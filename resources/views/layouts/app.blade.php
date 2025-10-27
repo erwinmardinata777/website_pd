@@ -36,7 +36,7 @@
     <link rel="icon" type="image/x-icon" href="{{ Storage::url($profilWeb->logo) }}" />
     <link rel="apple-touch-icon" href="{{ Storage::url($profilWeb->logo) }}" />
     @else
-    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('image/logo-sumbawa.png') }}" />
     @endif
 
     <!-- Bootstrap CSS -->
