@@ -24,9 +24,6 @@
     <section class="page-header">
         <div class="container position-relative">
             <h1 data-aos="fade-up">Tugas & Fungsi</h1>
-            <p data-aos="fade-up" data-aos-delay="100">
-                Tugas Pokok dan Fungsi Diskominfo Kabupaten Sumbawa
-            </p>
             <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}">Beranda</a></li>
@@ -63,7 +60,7 @@
                         </div>
                         <div>
                             <h2>{{ $tugasFungsi->judul }}</h2>
-                            <p class="tf-subtitle">Dinas Komunikasi dan Informatika Kabupaten Sumbawa</p>
+                            <p class="tf-subtitle">{{ $profilWeb->nama }}</p>
                         </div>
                     </div>
 

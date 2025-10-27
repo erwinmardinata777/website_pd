@@ -77,12 +77,12 @@
           </div>
           <div class="col-md-4 text-end">
             <div class="header-contact">
-              <p class="mb-2">
+              <!-- <p class="mb-2">
                 <i class="fas fa-phone me-2"></i> {{ $profilWeb->telp ?? '(0371) 123456' }}
               </p>
               <p class="mb-0">
                 <i class="fas fa-envelope me-2"></i> {{ $profilWeb->email ?? 'nama_pd@sumbawakab.go.id' }}
-              </p>
+              </p> -->
             </div>
           </div>
         </div>
