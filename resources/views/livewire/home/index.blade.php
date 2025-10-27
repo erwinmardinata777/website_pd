@@ -114,7 +114,7 @@
           <div class="col-lg-6" data-aos="fade-right">
             <div class="profil-img">
               <img
-                src="{{ $profil->bg ? Storage::url($profil->bg) : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop' }}"
+                src="{{ optional($profil)->bg ? Storage::url($profil->bg) : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop' }}"
                 alt="Profil"
               />
             </div>
@@ -122,12 +122,13 @@
           <div class="col-lg-6" data-aos="fade-left">
             <div class="profil-content">
               <h3 class="mb-4" style="color: #1e3c72; font-weight: 700">
-                {{  $profil->nama ? $profil->nama : 'Nama Perangkat Daerah' }}
+                {{ optional($profil)->nama ?? 'Nama Perangkat Daerah' }}
               </h3>
 
               <p class="text-muted">
-                {!! Str::limit(strip_tags($profil->deskripsi_full ? $profil->deskripsi_full : 'Deskripsi tidak tersedia'), 500) !!}
+                {!! Str::limit(strip_tags(optional($profil)->deskripsi_full ?? 'Deskripsi tidak tersedia'), 500) !!}
               </p> 
+
               <a href="{{ url('tentang-kami') }}" class="btn btn-primary mt-3">
                 <i class="fas fa-info-circle me-2"></i> Selengkapnya
               </a>
