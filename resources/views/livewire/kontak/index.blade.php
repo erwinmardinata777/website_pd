@@ -46,7 +46,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <h4>Alamat</h4>
-                    <p>{{ optional($profil->alamat) ?: 'Jl. Garuda No. 1, Sumbawa Besar, NTB' }}</p>
+                    <p>{{ optional($profil->alamat) ?? 'Jl. Garuda No. 1, Sumbawa Besar, NTB' }}</p>
                 </div>
 
                 <div class="contact-info-card">
@@ -55,7 +55,7 @@
                     </div>
                     <h4>Telepon</h4>
                     <p>
-                        <a href="tel:{{ $profil->telp }}">{{ optional($profil->telp) ?: '(0371) 123456' }}</a>
+                        <a href="tel:{{ $profil->telp }}">{{ optional($profil->telp) ?? '(0371) 123456' }}</a>
                     </p>
                 </div>
 
@@ -65,7 +65,7 @@
                     </div>
                     <h4>Email</h4>
                     <p>
-                        <a href="mailto:{{ $profil->email }}">{{ optional($profil->email) ?: 'diskominfo@sumbawakab.go.id' }}</a>
+                        <a href="mailto:{{ $profil->email }}">{{ optional($profil->email) ?? 'diskominfo@sumbawakab.go.id' }}</a>
                     </p>
                 </div>
 
