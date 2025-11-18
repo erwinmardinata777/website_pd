@@ -435,7 +435,8 @@
     </section>
 
     <!-- Lowongan Kerja Section -->
-    <!-- <section id="lowongan-kerja" class="section-padding bg-light">
+    {{-- 
+    <section id="lowongan-kerja" class="section-padding bg-light">
       <div class="container">
         <div class="section-title text-center mb-5" data-aos="fade-up">
           <h2>Lowongan Kerja</h2>
@@ -503,8 +504,8 @@
         </div>
         @endif
       </div>
-    </section> -->
-    
+    </section>
+    --}}
     <!-- Galeri Foto & Video Section -->
     <section id="galeri" class="galeri-section">
         <div class="container">
