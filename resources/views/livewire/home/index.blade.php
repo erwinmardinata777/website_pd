@@ -41,65 +41,92 @@
       </div>
     </section>
 
-    <!-- Layanan Section -->
-    <section id="layanan" class="section-padding bg-light">
+    <!-- Bidang Section -->
+    <section id="bidang" class="section-padding bg-light">
       <div class="container">
         <div class="section-title text-center mb-5" data-aos="fade-up">
-          <h2>Layanan Kami</h2>
+          <h2>Bidang</h2>
           <p class="text-muted mt-3">
-            Berbagai layanan digital untuk kemudahan masyarakat
+            Struktur Bidang di Dinas Komunikasi dan Informatika Kabupaten Sumbawa
           </p>
         </div>
 
         <div class="row g-4 justify-content-center">
           @php
-            // Warna latar ikon bisa diganti sesuka kamu (otomatis berganti)
+            // Warna gradient untuk setiap bidang
             $colors = [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
                 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
                 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
                 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
                 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)',
-                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
-                'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
                 'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
+                'linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%)',
+                'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
                 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
             ];
           @endphp
 
-          @forelse ($layanans as $index => $layanan)
+          @forelse ($bidangs as $index => $bidang)
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-              <div class="layanan-card text-center p-4 bg-white shadow-sm rounded-4 h-100">
-                <div
-                  class="layanan-icon mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle"
-                  style="
-                    width: 80px;
-                    height: 80px;
-                    background: {{ $colors[$index % count($colors)] }};
-                    color: #fff;
-                    font-size: 2rem;
-                  "
-                >
-                  <i class="{{ $layanan->icon }}"></i>
+              <div class="bidang-card-home text-center p-4 bg-white shadow-sm rounded-4 h-100">
+                <!-- Icon/Thumbnail -->
+                <div class="bidang-icon-home mx-auto mb-3">
+                  @if($bidang->thumb)
+                    <img src="{{ Storage::url($bidang->thumb) }}" 
+                        alt="{{ $bidang->nama_bidang }}"
+                        class="img-fluid rounded-circle"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                  @else
+                    <div class="bidang-placeholder-home d-flex align-items-center justify-content-center rounded-circle h-100"
+                        style="background: {{ $colors[$index % count($colors)] }}; color: #fff; font-size: 2.5rem;">
+                      <i class="fas fa-building"></i>
+                    </div>
+                  @endif
                 </div>
-                <h4 class="mt-3">{{ $layanan->nama_layanan }}</h4>
-                <p class="text-muted">
-                  {{ Str::limit($layanan->deskripsi_singkat, 100) }}
+
+                <!-- Bidang Name -->
+                <h4 class="mt-3 fw-bold" style="color: #1e3c72;">{{ $bidang->nama_bidang }}</h4>
+
+                <!-- Description -->
+                <p class="text-muted mb-3">
+                  {{ Str::limit(strip_tags($bidang->deskripsi) ?? 'Deskripsi bidang belum tersedia', 100) }}
                 </p>
-                @if ($layanan->slug)
-                  <a href="{{ url('layanan/' . $layanan->slug) }}" class="btn btn-sm btn-outline-primary mt-2">
-                    Akses Layanan →
-                  </a>
-                @endif
+
+                <!-- Pegawai Count Badge -->
+                <!-- <div class="mb-3">
+                  <span class="badge rounded-pill px-3 py-2"
+                        style="background: {{ $colors[$index % count($colors)] }}; color: white; font-size: 0.85rem;">
+                    <i class="fas fa-users me-1"></i>
+                    {{ $bidang->pegawais_count }} Pegawai
+                  </span>
+                </div> -->
+
+                <!-- Action Button -->
+                <a href="{{ route('bidang.detail', $bidang->id) }}" 
+                  class="btn btn-sm btn-outline-primary mt-2 px-4">
+                  <i class="fas fa-arrow-right me-1"></i>
+                  Lihat Detail
+                </a>
               </div>
             </div>
           @empty
             <div class="text-center py-5">
-              <p class="text-muted">Belum ada data layanan tersedia.</p>
+              <i class="fas fa-building" style="font-size: 60px; color: #e0e0e0;"></i>
+              <p class="text-muted mt-3">Belum ada data bidang tersedia.</p>
             </div>
           @endforelse
         </div>
+
+        <!-- View All Button -->
+        @if($bidangs->count() > 0)
+        <div class="text-center mt-5">
+          <a href="{{ route('bidang.index') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-building me-2"></i> Lihat Semua Bidang
+          </a>
+        </div>
+        @endif
       </div>
     </section>
 
@@ -407,6 +434,77 @@
       </div>
     </section>
 
+    <!-- Lowongan Kerja Section -->
+    <section id="lowongan-kerja" class="section-padding bg-light">
+      <div class="container">
+        <div class="section-title text-center mb-5" data-aos="fade-up">
+          <h2>Lowongan Kerja</h2>
+          <p class="text-muted mt-3">Informasi lowongan pekerjaan terbaru</p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+          @forelse ($lowonganKerjas as $index => $lowongan)
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+              <div class="lowongan-card bg-white shadow-sm rounded-4 overflow-hidden h-100 d-flex flex-column">
+                <div class="lowongan-img">
+                  @if($lowongan->fotoLowongans->first())
+                    <img
+                      src="{{ Storage::url($lowongan->fotoLowongans->first()->foto) }}"
+                      alt="{{ $lowongan->judul }}"
+                      class="w-100"
+                      style="height: 200px; object-fit: cover;"
+                    />
+                  @else
+                    <div class="lowongan-placeholder d-flex align-items-center justify-content-center">
+                      <i class="fas fa-briefcase"></i>
+                    </div>
+                  @endif
+                  <div class="lowongan-badge">
+                    <i class="fas fa-clock me-1"></i>
+                    {{ \Carbon\Carbon::parse($lowongan->tanggal)->diffForHumans() }}
+                  </div>
+                </div>
+                <div class="lowongan-content p-3 flex-fill d-flex flex-column justify-content-between">
+                  <div>
+                    <div class="lowongan-company mb-2">
+                      <i class="fas fa-building me-2"></i>
+                      <span class="text-muted">{{ $lowongan->nama_perusahaan }}</span>
+                    </div>
+                    <h5 class="fw-bold mb-2">{{ $lowongan->judul }}</h5>
+                    <p class="text-muted mb-2">
+                      <i class="fas fa-map-marker-alt me-2"></i>
+                      {{ Str::limit($lowongan->alamat, 50) }}
+                    </p>
+                    <p class="text-muted">
+                      {{ Str::limit(strip_tags($lowongan->deskripsi), 100) }}
+                    </p>
+                  </div>
+                  <div>
+                    <a href="{{ route('lowongan-kerja.detail', $lowongan->id) }}" class="btn-read-more mt-2 d-inline-block">
+                      Lihat Detail <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @empty
+            <div class="text-center py-5">
+              <i class="fas fa-briefcase" style="font-size: 60px; color: #e0e0e0;"></i>
+              <p class="text-muted mt-3">Belum ada lowongan kerja tersedia.</p>
+            </div>
+          @endforelse
+        </div>
+
+        @if($lowonganKerjas->count() > 0)
+        <div class="text-center mt-5">
+          <a href="{{ route('lowongan-kerja.index') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-briefcase me-2"></i> Lihat Semua Lowongan
+          </a>
+        </div>
+        @endif
+      </div>
+    </section>
+    
     <!-- Galeri Foto & Video Section -->
     <section id="galeri" class="galeri-section">
         <div class="container">

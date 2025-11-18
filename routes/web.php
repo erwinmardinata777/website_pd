@@ -14,6 +14,9 @@ Route::get('/tentang-kami', App\Livewire\TentangKami\Index::class)->name('tentan
 Route::get('/bidang', App\Livewire\Bidang\Index::class)->name('bidang.index');
 Route::get('/bidang/{id}', App\Livewire\Bidang\Detail::class)->name('bidang.detail');
 
+Route::get('/lowongan-kerja', App\Livewire\LowonganKerja\Index::class)->name('lowongan-kerja.index');
+Route::get('/lowongan-kerja/{id}', App\Livewire\LowonganKerja\Detail::class)->name('lowongan-kerja.detail');
+
 Route::get('/pengaduan', App\Livewire\Pengaduan\ListPengaduan::class)->name('pengaduan.list');
 Route::get('/pengaduan/{id}', App\Livewire\Pengaduan\Detail::class)->name('pengaduan.detail');
 Route::get('/pengaduan-baru', App\Livewire\Pengaduan\Form::class)->name('pengaduan.form');

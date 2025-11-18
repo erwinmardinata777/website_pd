@@ -137,6 +137,7 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" wire:navigatee href="{{ url('/agenda') }}">Agenda Kegiatan</a></li>
                 <li><a class="dropdown-item" wire:navigatee href="{{ url('/dokumen') }}">Dokumen Publik</a></li>
+                <li><a class="dropdown-item" wire:navigatee href="{{ url('/lowongan-kerja') }}">Lowongan Kerja</a></li>
               </ul>
             </li>
 
