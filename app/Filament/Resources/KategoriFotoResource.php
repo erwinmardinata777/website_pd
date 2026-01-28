@@ -3,15 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\KategoriFotoResource\Pages;
-use App\Filament\Resources\KategoriFotoResource\RelationManagers;
 use App\Models\KategoriFoto;
+use App\Models\Opd;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class KategoriFotoResource extends Resource
@@ -21,12 +20,41 @@ class KategoriFotoResource extends Resource
     protected static ?string $navigationGroup = 'Galeri';
     protected static ?string $pluralModelLabel = 'Foto';
     protected static ?string $modelLabel = 'Foto';
-    protected static ?int $navigationSort = 1; // urutan pertama
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
+        $isAdmin = auth()->user()->opds_id === null;
+
         return $form
             ->schema([
+                // ✅ Section untuk OPD (khusus admin)
+                Forms\Components\Section::make('Informasi OPD')
+                    ->description('Pilih OPD/Instansi untuk kategori foto ini')
+                    ->schema([
+                        Forms\Components\Select::make('opds_id')
+                            ->label('OPD/Instansi')
+                            ->options(Opd::query()->orderBy('nama_opd')->pluck('nama_opd', 'id'))
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->columnSpanFull(),
+                    ])
+                    ->visible($isAdmin)
+                    ->collapsible(),
+
+                // ✅ Placeholder untuk user non-admin
+                Forms\Components\Section::make('Informasi OPD')
+                    ->description('OPD/Instansi Anda')
+                    ->schema([
+                        Forms\Components\Placeholder::make('opd_info')
+                            ->label('OPD/Instansi')
+                            ->content(fn () => auth()->user()->opd?->nama_opd ?? '-')
+                            ->columnSpanFull(),
+                    ])
+                    ->visible(!$isAdmin)
+                    ->collapsible(),
+
                 // Section untuk Informasi Kategori
                 Forms\Components\Section::make('Informasi Kategori')
                     ->description('Masukkan detail kategori foto')
@@ -38,7 +66,8 @@ class KategoriFotoResource extends Resource
                             ->afterStateUpdated(fn ($state, callable $set) =>
                                 $set('slug', Str::slug($state))
                             )
-                            ->placeholder('Contoh: Kegiatan Sekolah'),
+                            ->placeholder('Contoh: Kegiatan Sekolah')
+                            ->maxLength(255),
 
                         Forms\Components\TextInput::make('slug')
                             ->label('Slug')
@@ -88,6 +117,7 @@ class KategoriFotoResource extends Resource
                                                 '4:3',
                                                 '1:1',
                                             ])
+                                            ->imagePreviewHeight('200')
                                             ->required()
                                             ->helperText('Max 2MB. Format: JPG, PNG, WebP'),
                                     ]),
@@ -97,7 +127,7 @@ class KategoriFotoResource extends Resource
                             ->collapsed()
                             ->cloneable()
                             ->reorderableWithButtons()
-                            ->addActionLabel('Tambah Foto')
+                            ->addActionLabel('+ Tambah Foto')
                             ->deleteAction(
                                 fn ($action) => $action->requiresConfirmation()
                             )
@@ -112,18 +142,30 @@ class KategoriFotoResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $isAdmin = auth()->user()->opds_id === null;
+
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('No')
                     ->sortable()
                     ->toggleable(),
+
+                // ✅ Tampilkan kolom OPD hanya untuk admin
+                Tables\Columns\TextColumn::make('opd.nama_opd')
+                    ->label('OPD/Instansi')
+                    ->searchable()
+                    ->sortable()
+                    ->wrap()
+                    ->limit(30)
+                    ->visible($isAdmin),
                     
                 Tables\Columns\TextColumn::make('nama_kategori')
                     ->label('Nama Kategori')
                     ->searchable()
                     ->sortable()
                     ->weight('medium')
+                    ->wrap()
                     ->icon('heroicon-o-folder'),
                     
                 Tables\Columns\TextColumn::make('slug')
@@ -139,7 +181,8 @@ class KategoriFotoResource extends Resource
                     ->counts('fotos')
                     ->badge()
                     ->color('success')
-                    ->icon('heroicon-o-photo'),
+                    ->icon('heroicon-o-photo')
+                    ->sortable(),
                     
                 Tables\Columns\TextColumn::make('tanggal')
                     ->label('Tanggal')
@@ -152,7 +195,8 @@ class KategoriFotoResource extends Resource
                     ->sortable()
                     ->badge()
                     ->color('primary')
-                    ->icon('heroicon-o-eye'),
+                    ->icon('heroicon-o-eye')
+                    ->toggleable(),
                     
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
@@ -162,10 +206,20 @@ class KategoriFotoResource extends Resource
             ])
             ->defaultSort('tanggal', 'desc')
             ->filters([
+                // ✅ Filter OPD hanya untuk admin
+                Tables\Filters\SelectFilter::make('opds_id')
+                    ->label('OPD/Instansi')
+                    ->options(Opd::query()->orderBy('nama_opd')->pluck('nama_opd', 'id'))
+                    ->searchable()
+                    ->preload()
+                    ->visible($isAdmin),
+
                 Tables\Filters\Filter::make('tanggal')
                     ->form([
-                        Forms\Components\DatePicker::make('dari'),
-                        Forms\Components\DatePicker::make('sampai'),
+                        Forms\Components\DatePicker::make('dari')
+                            ->label('Dari Tanggal'),
+                        Forms\Components\DatePicker::make('sampai')
+                            ->label('Sampai Tanggal'),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -210,5 +264,18 @@ class KategoriFotoResource extends Resource
             'create' => Pages\CreateKategoriFoto::route('/create'),
             'edit' => Pages\EditKategoriFoto::route('/{record}/edit'),
         ];
+    }
+
+    // ✅ Filter query: User non-admin hanya melihat kategori foto OPD-nya
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        // Jika user bukan admin (punya opds_id), filter berdasarkan OPD-nya
+        if (auth()->check() && auth()->user()->opds_id) {
+            $query->where('opds_id', auth()->user()->opds_id);
+        }
+
+        return $query;
     }
 }

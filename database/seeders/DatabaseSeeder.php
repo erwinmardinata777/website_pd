@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             KecamatanSeeder::class,
             DesaSeeder::class,
             LinkTerkaitSeeder::class,
+            OpdSeeder::class,
         ]);        
     }
 }
