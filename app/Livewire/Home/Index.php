@@ -21,7 +21,7 @@ class Index extends Component
     public $sliders;
     public $agendas;
     public $beritas;
-    public $bidangs; // Ganti dari layanans ke bidangs
+    public $bidangs;
     public $links;
     public $pegawais;
     public $profil;
@@ -39,16 +39,34 @@ class Index extends Component
     public $videos;
     public $featuredKategori;
 
+    // Tenant info
+    public $currentTenant;
+    public $isMainDomain;
+
     public function mount()
     {
+        // Get tenant info from config
+        $this->currentTenant = config('app.current_tenant');
+        $this->isMainDomain = config('app.is_main_domain', false);
+
+        // ✅ Jika main domain tanpa tenant, redirect ke daftar OPD
+        if ($this->isMainDomain && !$this->currentTenant) {
+            return redirect()->route('daftar-opd');
+        }
+
+        // ✅ Jika tidak ada tenant sama sekali (seharusnya sudah di-handle middleware)
+        if (!$this->currentTenant) {
+            return redirect()->away('https://web-pd.sumbawakab.go.id/daftar-opd');
+        }
+
+        // Data akan otomatis ter-filter oleh TenantScope
         $this->sliders = Slider::latest()->get();
         $this->agendas = Agenda::latest()->take(6)->get();
         $this->beritas = Berita::latest()->take(5)->get();
         
-        // Ganti layanan dengan bidang
         $this->bidangs = Bidang::withCount('pegawais')
             ->orderBy('nama_bidang', 'asc')
-            ->take(6) // Ambil 6 bidang untuk ditampilkan
+            ->take(6)
             ->get();
         
         $this->links = LinkTerkait::orderBy('id', 'asc')->get();
@@ -61,24 +79,22 @@ class Index extends Component
         $this->pengaduanProses = Pengaduan::where('status', 1)->count();
         $this->pengaduanBaru = Pengaduan::where('status', 0)->count();
         $this->pengaduanTerbaru = Pengaduan::latest('tanggal_pengaduan')->take(5)->get();
-        $this->lowonganKerjas = LowonganKerja::with('fotoLowongans')->latest('tanggal') ->take(3)->get();
+        $this->lowonganKerjas = LowonganKerja::with('fotoLowongans')->latest('tanggal')->take(3)->get();
         
-        // Galeri - Ambil kategori dengan foto pertama
+        // Galeri
         $this->kategoriFotos = KategoriFoto::with(['fotos' => function($query) {
-            $query->oldest()->take(1); // Ambil foto pertama
+            $query->oldest()->take(1);
         }])
         ->latest('tanggal')
-        ->take(9) // Ambil 9 kategori
+        ->take(9)
         ->get();
 
-        // Featured kategori (yang terbaru dengan hits terbanyak)
         $this->featuredKategori = KategoriFoto::with(['fotos' => function($query) {
             $query->oldest()->take(1);
         }])
         ->orderBy('hits', 'desc')
         ->first();
 
-        // Videos - Ambil 6 video terbaru
         $this->videos = Video::latest('tanggal')->take(6)->get();
     }
 

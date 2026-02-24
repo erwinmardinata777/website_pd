@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\HasTenant;
 
 class Visi extends Model
 {
+    use HasTenant; // ✅ Gunakan trait
+
     protected $fillable = [
         'opds_id',
         'visi',

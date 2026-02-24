@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use App\Traits\HasTenant;
 
 class Agenda extends Model
 {
+    use HasTenant; // ✅ Gunakan trait
+    
     protected $fillable = [
         'opds_id',
         'agenda',

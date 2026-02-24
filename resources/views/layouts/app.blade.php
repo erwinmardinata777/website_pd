@@ -58,7 +58,13 @@
     @livewireStyles
   </head>
   <body>
+    @php
+      // Cek apakah ini domain utama (web-pd)
+      $isMainDomain = config('app.is_main_domain', false);
+    @endphp
+
     <!-- Header dengan Logo dan Nama Perangkat Daerah -->
+    @if(!$isMainDomain)
     <header class="top-header">
       <div class="container">
         <div class="row align-items-center">
@@ -98,7 +104,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <a wire:navigatee href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
+              <a wire:navigate href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">
                 <i class="fas fa-home me-1"></i> Beranda
               </a>
             </li>
@@ -109,22 +115,22 @@
                 <i class="fas fa-info-circle me-1"></i> Profil
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" wire:navigatee href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
-                <li><a class="dropdown-item" wire:navigatee href="{{ url('/visi-misi') }}">Visi & Misi</a></li>
-                <li><a class="dropdown-item" wire:navigatee href="{{ url('/struktur-organisasi') }}">Struktur Organisasi</a></li>
-                <li><a class="dropdown-item" wire:navigatee href="{{ url('/tugas-fungsi') }}">Tugas & Fungsi</a></li>
-                <li><a class="dropdown-item" wire:navigatee href="{{ url('/bidang') }}">Bidang</a></li>
+                <li><a class="dropdown-item" wire:navigate href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
+                <li><a class="dropdown-item" wire:navigate href="{{ url('/visi-misi') }}">Visi & Misi</a></li>
+                <li><a class="dropdown-item" wire:navigate href="{{ url('/struktur-organisasi') }}">Struktur Organisasi</a></li>
+                <li><a class="dropdown-item" wire:navigate href="{{ url('/tugas-fungsi') }}">Tugas & Fungsi</a></li>
+                <li><a class="dropdown-item" wire:navigate href="{{ url('/bidang') }}">Bidang</a></li>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a wire:navigatee href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan*') ? 'active' : '' }}">
+              <a wire:navigate href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan*') ? 'active' : '' }}">
                 <i class="fas fa-concierge-bell me-1"></i> Layanan
               </a>
             </li>
 
             <li class="nav-item">
-              <a wire:navigatee href="{{ url('/berita') }}" class="nav-link {{ request()->is('berita*') ? 'active' : '' }}">
+              <a wire:navigate href="{{ url('/berita') }}" class="nav-link {{ request()->is('berita*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper me-1"></i> Berita
               </a>
             </li>
@@ -135,20 +141,20 @@
                 <i class="fas fa-database me-1"></i> Informasi
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" wire:navigatee href="{{ url('/agenda') }}">Agenda Kegiatan</a></li>
-                <li><a class="dropdown-item" wire:navigatee href="{{ url('/dokumen') }}">Dokumen Publik</a></li>
-                <!-- <li><a class="dropdown-item" wire:navigatee href="{{ url('/lowongan-kerja') }}">Lowongan Kerja</a></li> -->
+                <li><a class="dropdown-item" wire:navigate href="{{ url('/agenda') }}">Agenda Kegiatan</a></li>
+                <li><a class="dropdown-item" wire:navigate href="{{ url('/dokumen') }}">Dokumen Publik</a></li>
+                <!-- <li><a class="dropdown-item" wire:navigate href="{{ url('/lowongan-kerja') }}">Lowongan Kerja</a></li> -->
               </ul>
             </li>
 
             <li class="nav-item">
-              <a wire:navigatee href="{{ url('/galeri') }}" class="nav-link {{ request()->is('galeri*') ? 'active' : '' }}">
+              <a wire:navigate href="{{ url('/galeri') }}" class="nav-link {{ request()->is('galeri*') ? 'active' : '' }}">
                 <i class="fas fa-images me-1"></i> Galeri
               </a>
             </li>
 
             <li class="nav-item">
-              <a wire:navigatee href="{{ url('/kontak') }}" class="nav-link {{ request()->is('kontak*') ? 'active' : '' }}">
+              <a wire:navigate href="{{ url('/kontak') }}" class="nav-link {{ request()->is('kontak*') ? 'active' : '' }}">
                 <i class="fas fa-phone-alt me-1"></i> Kontak
               </a>
             </li>
@@ -162,10 +168,15 @@
         </div>
       </div>
     </nav>
+    @endif
     
-    {{ $slot }}
+    <!-- Main Content -->
+    <main class="{{ $isMainDomain ? 'main-domain-content' : '' }}">
+      {{ $slot }}
+    </main>
 
     <!-- Footer -->
+    @if(!$isMainDomain)
     <footer class="footer">
       <div class="container">
         <div class="row">
@@ -248,8 +259,9 @@
         </div>
       </div>
     </footer>
+    @endif
 
-    <!-- Back to Top Button -->
+    <!-- Back to Top Button (Tampil di semua halaman) -->
     <a href="#" class="btn btn-primary" id="backToTop" style="position: fixed; bottom: 30px; right: 30px; display: none; z-index: 999; width: 50px; height: 50px; border-radius: 50%; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);">
       <i class="fas fa-arrow-up"></i>
     </a>
@@ -267,6 +279,7 @@
 
     <!-- Custom JS -->
     <script>
+      @if(!$isMainDomain)
       // Initialize Hero Swiper
       const heroSwiper = new Swiper(".hero-swiper", {
         loop: true,
@@ -316,21 +329,6 @@
             }
           }
         });
-      });
-
-      // Back to Top Button
-      const backToTop = document.getElementById("backToTop");
-      window.addEventListener("scroll", () => {
-        if (window.pageYOffset > 300) {
-          backToTop.style.display = "block";
-        } else {
-          backToTop.style.display = "none";
-        }
-      });
-
-      backToTop.addEventListener("click", (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
       // Active Menu on Scroll
@@ -428,7 +426,25 @@
           }, 1500);
         });
       }
+      @endif
+
+      // Back to Top Button (Global untuk semua halaman)
+      const backToTop = document.getElementById("backToTop");
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTop.style.display = "block";
+        } else {
+          backToTop.style.display = "none";
+        }
+      });
+
+      backToTop.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
     </script>
+    
+    @if(!$isMainDomain)
     <script>
       // Initialize AOS
       AOS.init({ duration: 1000, once: true, offset: 100 });
@@ -438,5 +454,6 @@
         AOS.refreshHard();
       });
     </script>
+    @endif
   </body>
 </html>

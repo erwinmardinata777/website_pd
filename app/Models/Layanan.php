@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use App\Traits\HasTenant;
 
 class Layanan extends Model
 {
+    use HasTenant; // Tambahkan trait
+
     protected $fillable = [
         'opds_id',
         'nama_layanan',

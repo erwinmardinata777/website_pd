@@ -11,10 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Add visitor tracking middleware to web group
+        // ✅ Hanya apply TrackVisitor, bukan IdentifyTenant secara global
         $middleware->web(append: [
             \App\Http\Middleware\TrackVisitor::class,
         ]);
+
+        // ✅ JANGAN tambahkan IdentifyTenant di sini!
+        // Kita akan apply via routes/web.php saja
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

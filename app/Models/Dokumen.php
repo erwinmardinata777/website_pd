@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Traits\HasTenant;
 
 class Dokumen extends Model
 {
+    use HasTenant; // Tambahkan trait
+
     protected $fillable = [
         'opds_id',
         'kategori_dokumens_id',

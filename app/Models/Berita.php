@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use App\Traits\HasTenant;
 
 class Berita extends Model
 {
+    use HasTenant; // Tambahkan trait
+
     protected $fillable = [
         'opds_id',
         'judul',
@@ -23,6 +26,7 @@ class Berita extends Model
 
     protected $casts = [
         'tanggal' => 'date',
+        'hits' => 'integer',
     ];
 
     // ✅ Generate slug otomatis saat membuat atau mengubah judul

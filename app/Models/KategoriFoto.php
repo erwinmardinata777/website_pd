@@ -6,9 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use App\Traits\HasTenant;
 
 class KategoriFoto extends Model
 {
+    use HasTenant; // Tambahkan trait
+
     protected $fillable = [
         'opds_id',
         'nama_kategori',
